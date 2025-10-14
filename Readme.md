@@ -27,4 +27,4 @@ Before running the project, make sure you have the following installed:
 Redis data is stored in a Docker volume named `redis_data` to ensure data persists across container restarts.
 
 ### Custom Network
-FastAPI and Redis communicate over a custom network called `my_app_network`.
+FastAPI and Redis communicate over the custom network called `my_app_network`.
