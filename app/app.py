@@ -1,21 +1,25 @@
 from fastapi import FastAPI
-from redis import Redis
 import os
-import uvicorn
+import redis
 
-app = FastAPI()
+app = FastAPI(title="FastAPI + Redis App")
 
-# TODO: Configuration from environment variables
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
+# Redis configuration
+redis_host = os.getenv("REDIS_HOST", "redis")
+redis_port = int(os.getenv("REDIS_PORT", 6379))
 
-redis = Redis(host=REDIS_HOST, port=REDIS_PORT)
+# Redis client
+r = redis.Redis(host=redis_host, port=redis_port, decode_responses=True)
 
 @app.get("/")
-def hello():
-    redis.incr('hits')
-    hits = redis.get('hits').decode('utf-8')
-    return f"Hello! This page has been visited {hits} times."
+def root():
+    return {"message": "Welcome to FastAPI + Redis App!"}
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+@app.get("/hit")
+def hit():
+    try:
+        r.incr("hits")
+        hits = r.get("hits")
+        return {"hits": hits}
+    except Exception as e:
+        return {"error": f"Redis error: {str(e)}"}

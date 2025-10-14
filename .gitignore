@@ -1,36 +1,19 @@
-#python
+# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual environments
-venv/
+*.pyc
+*.pyo
+*.pyd
 env/
-ENV/
+venv/
+
+# Docker
+*.log
+*.pid
+*.sock
+.DS_Store
+.env
+docker-compose.override.yml
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
