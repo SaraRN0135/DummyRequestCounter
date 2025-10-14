@@ -11,9 +11,11 @@ redis_port = int(os.getenv("REDIS_PORT", 6379))
 # Redis client
 r = redis.Redis(host=redis_host, port=redis_port, decode_responses=True)
 
+
 @app.get("/")
 def root():
     return {"message": "Welcome to FastAPI + Redis App!"}
+
 
 @app.get("/hit")
 def hit():
