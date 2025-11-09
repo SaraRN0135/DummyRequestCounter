@@ -1,22 +1,16 @@
-# Use a lightweight Python image
-FROM python:3.12-slim
+# Dockerfile
+FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
-
-# Copy dependency file and install
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the app folder into the container
-COPY ./app ./app
+COPY app.py .
 
-# Environment variables for FastAPI
-ENV REDIS_HOST=redis
-ENV REDIS_PORT=6379
+# Create log dir & set permissions
+RUN mkdir -p /var/log && touch /var/log/counter.log && chown -R root:root /var/log
 
-# Expose FastAPI port
-EXPOSE 8000
+ENV PORT=5000
+EXPOSE 5000
 
-# Command to run the API
-CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "app.py"]
